@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "tattscore-repo",
+  "private_key_id": "069b42d76b6b0852cc9bcecbee1580206250ce97",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCltbiDm7io2kgw\nXyxot916SVUS+TH1iV0l74AxZaTFktkv/co5ebarwUxa/aXOtoHZvSQfKGCXNSq3\nv/X0otjEiOzRqi0HRGvAZcFZrBSkiJVxvo1f9g733k7fHq6Yw8j837gnPux1XcCE\ntUP6iEqDAdXml3jVFhZHX27g/0GaKJguKw6HCm2rq59bB61OJSuKwHGLketwD6Kt\nPqrrrk4ATF/fkCa7LIGcjxOPDxrXsYdRuXpVNDP2Gp5MebDJJNUaxC18J0DU4OP2\nj4k0mLuHUCe+D5iplTBDJENzb4k/i/g22pcZr+0hPpqKCqgOe/6/Ud4dUUrQ1Xbz\n/iV3zxYRAgMBAAECggEACTNXgREoldF20B68qbzJsoQ3UcQdwr8Debt8P+Hfneur\nHOfHrlzEaHFlUqkCJ4HJIGSIyKUWhda5HjYtiw1uoSzkDzkWYnCpVeegbmDoTYFa\n4NOeaF1SU+9XLDq5IXi/ZFDsmds7yEFyErw4v8SI9JCpxnGTDyu4hXJ2Rs5NX2h6\nDeZp9cwTpNE95Z8gsHtLq/3p+F2Yq3Q72cpK/8d3foeXWDhom9ol4Kw/ht0UVI84\nxrK38yox4nWm51EOhdg24revhJugQMv2z37/gfcsxlMSB0qyOFURTCjFsn6/75u1\nnuohZLrrAZsrnlEW7xUCiiv6RsCZ/on+wOugJmbKgQKBgQDoq5IAsTRHRjlT2cXa\n16pb62Dp/iG+XvZWIVPLIaf/HDFi9V1VRZHe6Ic89bHgqItrxB8LKQXEdpPD0zSB\nv2B+79Y7KY+NnwtWXrAX/YWHSDCJxRW+QlY+7c/l9k0OPN0c0iwMEewSsQ4Suqqt\nYz6ecG5eb/AXLJ5OnffQePsV8QKBgQC2U1cE67JGEB2FZexEf6l2YEb/C+B+Umlb\nmb/eHPllhxL1eHioCa5IhbGbCWUp4zK/abAgxX1i+11RsMO+dhzcVlUxHEBvlo4w\nbhQaER+1zZ5VrRVlVSCKbMUih/SP2F9gUXCgrIeGnCX2LbRr2ywYhFI4wxMpdyeS\nOXg2WrtiIQKBgBV8Yos10gIS9hBMN/0xlUXPwq9ZDHysAEuL4FUN0pm4XMcqqWfK\neOIAzxxOBBMe/WECR2ucai/uU07uHhctORf/xeTIvbzyRvW+4LwWaVJI1FKkpJFh\nRt2g0GYIDK2X6UNUFUU4EnjXaNlJ66D/XTT8ZPTLmXxKXoQcClpyEZ3BAoGAdwVE\ngyPRxsbyXojAiZ7E40/KSOhZ7lyiBngBtl83tz1L9Q5lxVw8d38/B7REY+m60RWP\nMnV5esoYiyFXRtgX0wZQqrSEo9OmkprpaHLRPn8x40AP/Yxqp7KFphsWXWikKl4/\npcO63PbGGUSQyO/Ug1Stz/wYYDM2k9AMV383X8ECgYAnrJcmGJ0nvmjMZBdGEF+l\nfXbcVpqYcHORGuH7tqTsd7HXboVBPgW9ciZtrDmb3PPliZ3AE1tGH1VSETdXtVJP\nW05pCiYJEdjH/Ig1i672IbyJvXtVN/wvMUyefA2jWLTWrEx0yuBmA5DOOYLQO2Xm\nvDJVzo/dgLcBSDbqWAayYw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "tattscore-repo@tattscore-repo.iam.gserviceaccount.com",
+  "client_id": "100591753403973572437",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/tattscore-repo%40tattscore-repo.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

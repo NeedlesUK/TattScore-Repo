@@ -1,0 +1,40 @@
+const axios = require("axios");
+
+/**
+ * Deletes or trashes all WordPress pages for a given eventKey.
+ * Assumes eventKey is stored in the slug or title.
+ * You may need to adapt this if you use a custom field.
+ */
+async function deleteEventPages({
+  wpBaseUrl,
+  wpUser,
+  wpAppPassword,
+  eventKey
+}) {
+  const auth = {
+    username: wpUser,
+    password: wpAppPassword
+  };
+
+  // 1. Find all pages with eventKey in the slug or title (adjust this query if you use custom fields)
+  const res = await axios.get(
+    `${wpBaseUrl}/wp-json/wp/v2/pages?search=${eventKey}&per_page=100`,
+    { auth }
+  );
+
+  let deleted = [];
+  if (Array.isArray(res.data)) {
+    for (const page of res.data) {
+      // 2. Trash or delete each page (here: force delete)
+      await axios.delete(
+        `${wpBaseUrl}/wp-json/wp/v2/pages/${page.id}?force=true`,
+        { auth }
+      );
+      deleted.push(page.id);
+    }
+  }
+
+  return { deleted };
+}
+
+module.exports = { deleteEventPages };
