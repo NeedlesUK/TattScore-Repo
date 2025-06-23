@@ -1,0 +1,44 @@
+const axios = require("axios");
+
+/**
+ * Deletes all WordPress pages with the eventKey in the slug or title.
+ * @param {object} params
+ * @param {string} params.wpBaseUrl
+ * @param {string} params.wpUser
+ * @param {string} params.wpAppPassword
+ * @param {string} params.eventKey
+ * @returns {Promise<{deleted: number[]}>}
+ */
+async function deleteEventPages({ wpBaseUrl, wpUser, wpAppPassword, eventKey }) {
+  const auth = {
+    username: wpUser,
+    password: wpAppPassword
+  };
+
+  // Find all pages with eventKey in the slug or title
+  const res = await axios.get(
+    `${wpBaseUrl}/wp-json/wp/v2/pages?search=${eventKey}&per_page=100`,
+    { auth }
+  );
+
+  let deleted = [];
+  if (Array.isArray(res.data)) {
+    for (const page of res.data) {
+      // Only delete if the slug or title contains eventKey
+      if (
+        (page.slug && page.slug.includes(eventKey)) ||
+        (page.title && typeof page.title.rendered === "string" && page.title.rendered.includes(eventKey))
+      ) {
+        await axios.delete(
+          `${wpBaseUrl}/wp-json/wp/v2/pages/${page.id}?force=true`,
+          { auth }
+        );
+        deleted.push(page.id);
+      }
+    }
+  }
+
+  return { deleted };
+}
+
+module.exports = { deleteEventPages };

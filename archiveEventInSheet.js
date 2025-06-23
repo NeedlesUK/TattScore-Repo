@@ -2,14 +2,14 @@ const { google } = require('googleapis');
 const sheets = google.sheets('v4');
 
 /**
- * Deletes a row in the Api Config sheet for the given eventKey.
+ * Deletes a row in the Event Data sheet for the given eventKey.
  * @param {string} spreadsheetId
  * @param {string} eventKey
  * @param {string} sheetName
  * @param {object} auth
  * @returns {Promise<boolean>}
  */
-async function deleteEventFromApiConfig(spreadsheetId, eventKey, sheetName, auth) {
+async function deleteEventFromSheet(spreadsheetId, eventKey, sheetName, auth) {
   // Get all rows
   const res = await sheets.spreadsheets.values.get({
     spreadsheetId,
@@ -34,6 +34,7 @@ async function deleteEventFromApiConfig(spreadsheetId, eventKey, sheetName, auth
   }
   if (rowIndex === -1) return false;
 
+  // Delete the row (account for 0-indexed range vs. 1-indexed spreadsheet)
   await sheets.spreadsheets.batchUpdate({
     spreadsheetId,
     auth,
@@ -44,7 +45,7 @@ async function deleteEventFromApiConfig(spreadsheetId, eventKey, sheetName, auth
             range: {
               sheetId: await getSheetId(spreadsheetId, sheetName, auth),
               dimension: 'ROWS',
-              startIndex: rowIndex,
+              startIndex: rowIndex, // header is row 0
               endIndex: rowIndex + 1
             }
           }
@@ -63,4 +64,4 @@ async function getSheetId(spreadsheetId, sheetName, auth) {
   return sheet ? sheet.properties.sheetId : null;
 }
 
-module.exports = deleteEventFromApiConfig;
+module.exports = deleteEventFromSheet;

@@ -4,8 +4,8 @@ const fs = require("fs");
 const path = require("path");
 const bodyParser = require("body-parser");
 const { cloneEventPages } = require("./cloneWpPages");
-const archiveEventInSheet = require("./utils/archiveEventInSheet");
-const archiveEventInApiConfig = require("./utils/archiveEventInApiConfig");
+const deleteEventFromSheet = require("./archiveEventInSheet");
+const deleteEventFromApiConfig = require("./archiveEventInApiConfig");
 const { deleteEventPages } = require("./utils/deleteEventPages");
 
 require("dotenv").config();
@@ -119,7 +119,7 @@ app.post("/create-event", async (req, res) => {
   }
 });
 
-// ARCHIVE EVENT ROUTE
+// ARCHIVE/DELETE EVENT ROUTE
 app.post("/archive-event", async (req, res) => {
   const { eventKey } = req.body;
   if (!eventKey) {
@@ -128,22 +128,24 @@ app.post("/archive-event", async (req, res) => {
 
   try {
     const authClient = await auth.getClient();
-    // Archive in Event Data
-    const archivedEvent = await archiveEventInSheet(
+
+    // 1. Delete from Event Data
+    const deletedEventRow = await deleteEventFromSheet(
       MASTER_SHEET_ID,
       eventKey,
       EVENT_DATA_TAB,
       authClient
     );
-    // Archive in Api Config
-    const archivedApiConfig = await archiveEventInApiConfig(
+
+    // 2. Delete from Api Config
+    const deletedApiConfigRow = await deleteEventFromApiConfig(
       MASTER_SHEET_ID,
       eventKey,
       API_CONFIG_TAB,
       authClient
     );
 
-    // Delete WP pages
+    // 3. Delete WP pages
     let wpDeleteResult = {};
     try {
       wpDeleteResult = await deleteEventPages({
@@ -156,18 +158,18 @@ app.post("/archive-event", async (req, res) => {
       wpDeleteResult = { error: wpErr.message };
     }
 
-    if (!archivedEvent && !archivedApiConfig) {
+    if (!deletedEventRow && !deletedApiConfigRow) {
       return res.status(404).json({ success: false, error: "Event not found in any tab." });
     }
     res.json({
       success: true,
-      message: "Event archived in Event Data and Api Config. WP pages deleted.",
-      archivedEvent,
-      archivedApiConfig,
+      message: "Event deleted from Event Data and Api Config. WP pages deleted. Event sheet remains in Drive for admin.",
+      deletedEventRow,
+      deletedApiConfigRow,
       wpDeleteResult
     });
   } catch (err) {
-    console.error("Error archiving event:", err);
+    console.error("Error archiving/deleting event:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
