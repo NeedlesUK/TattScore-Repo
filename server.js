@@ -36,6 +36,32 @@ const auth = new google.auth.GoogleAuth({
   ]
 });
 
+// --- CORS CONFIGURATION ---
+const cors = require("cors");
+
+// List of allowed origins for CORS
+const allowedOrigins = [
+  "https://tattscore.com",
+  // Add your development frontend URLs here for testing, e.g.:
+  // "http://localhost:3000",
+  // "https://your-github-codespace-url-3000.app.github.dev"
+];
+
+// CORS middleware for both production and development
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps, curl, Postman)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      return callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type"]
+}));
+
 app.use(bodyParser.json());
 
 async function appendToSheet(sheetId, tabName, row) {
